@@ -5,7 +5,8 @@ from flaresolverr.response import Response
 
 class FlareSolverr:
     @staticmethod
-    def _request(url, max_timeout=60_000, cookies=None, proxy=None, post_data=None, flaresolverr_base_url=None):
+    def _request(url, max_timeout=60_000, cookies=None, proxy=None, post_data=None, session_id=None,
+                 flaresolverr_base_url=None):
         base_url = flaresolverr_base_url or 'http://localhost:8191'
         if base_url.endswith('/'):
             base_url = base_url[:-1]
@@ -33,15 +34,17 @@ class FlareSolverr:
             'maxTimeout': max_timeout,
             'cookies': cookies,
             'proxy': proxy,
-            'postData': post_data
+            'postData': post_data,
+            'session': session_id
         })
 
-        return Response(res, base_url)
+        return Response(res, url, base_url)
 
     @staticmethod
-    def get(url, max_timeout=60_000, cookies=None, proxy=None, flaresolverr_base_url=None):
-        return FlareSolverr._request(url, max_timeout, cookies, proxy, flaresolverr_base_url)
+    def get(url, max_timeout=60_000, cookies=None, proxy=None, session_id=None, flaresolverr_base_url=None):
+        return FlareSolverr._request(url, max_timeout, cookies, proxy, None, session_id, flaresolverr_base_url)
 
     @staticmethod
-    def post(url, max_timeout=60_000, cookies=None, proxy=None, post_data=None, flaresolverr_base_url=None):
-        return FlareSolverr._request(url, max_timeout, cookies, proxy, post_data, flaresolverr_base_url)
+    def post(url, max_timeout=60_000, cookies=None, proxy=None, post_data=None, session_id=None,
+             flaresolverr_base_url=None):
+        return FlareSolverr._request(url, max_timeout, cookies, proxy, post_data, session_id, flaresolverr_base_url)
