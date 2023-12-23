@@ -40,7 +40,12 @@ class FlareSolverrSession:
         })
         res.raise_for_status()
 
-        return res.json()
+        sessions_id = res.json().get('sessions')
+
+        return [
+            FlareSolverrSession(session_id, flaresolverr_base_url)
+            for session_id in sessions_id
+        ]
 
     def destroy(self):
         res = requests.post(f'{self.base_url}/v1', json={

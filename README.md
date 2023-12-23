@@ -45,5 +45,5 @@ session.get(
 session.destroy()
 
 # You can also list sessions already created
-FlareSolverrSession.get_sessions()  # return list of sessions id created and not closed
+FlareSolverrSession.get_sessions()  # return list of sessions created and not closed
 ```
